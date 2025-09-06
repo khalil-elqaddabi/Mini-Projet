@@ -7,14 +7,14 @@ char titre[100][50], auteur[100][50];
 int Q[100];
 // P = prix
 float P[100];
-int count = 0;
+int size = 0;
 void ajoutre()
 {
     int k;
     printf("\n");
     printf("combien du liver : ");
     scanf("%d", &k);
-    for (int i = count; i < count + k; i++)
+    for (int i = size; i < size + k; i++)
     {
         printf("======================\n");
         printf("---le titre N%d-----", i + 1);
@@ -28,18 +28,18 @@ void ajoutre()
         printf("le Quantite en stock :");
         scanf("%d", &Q[i]);
         }
-    count += k;
+    size += k;
 }
 
 void afficher()
 {
-    if (count == 0)
+    if (size == 0)
     {
         printf("le stock est vide !\n");
         return;
     }
     printf("lea livres dans le stok est :\n");
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < size; i++)
     {
         printf("----le livre N%d :---\n", i + 1);
         printf("%s\n", titre[i]);
@@ -52,7 +52,7 @@ void afficher()
 void rechercher()
 {
     char titre_r[100];
-    if (count == 0)
+    if (size == 0)
     {
         printf("le stock est vide !\n");
         return;
@@ -60,7 +60,7 @@ void rechercher()
     printf("le nom de liver : ");
     scanf(" %[^\n]s", titre_r);
     int t = 0;
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < size; i++)
     {
         if (strcmp(titre[i], titre_r) == 0)
         {
@@ -77,7 +77,7 @@ void rechercher()
 void modifier()
 {
     char titre_r[100];
-    if (count == 0)
+    if (size == 0)
     {
         printf("le stock est vide !\n");
         return;
@@ -86,7 +86,7 @@ void modifier()
     scanf(" %[^\n]s", titre_r);
     int t = 0;
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < size; i++)
     {
         if (strcmp(titre[i], titre_r) == 0)
         {
@@ -107,7 +107,7 @@ void modifier()
 void supprimer()
 {
     char titer_r[100];
-    if (count == 0)
+    if (size == 0)
     {
         printf("le stock est vide !\n");
         return;
@@ -116,18 +116,18 @@ void supprimer()
     scanf(" %[^\n]s", titer_r);
     int t = 0;
 
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < size; i++)
     {
         if (strcmp(titre[i], titer_r) == 0)
         {
-            for (int j = i; j < count - 1; j++)
+            for (int j = i; j < size - 1; j++)
             {
                 strcpy(titre[j], titre[j + 1]);
                 strcpy(auteur[j], auteur[j + 1]);
                 P[j] = P[j + 1];
                 Q[j] = Q[j + 1];
             }
-            count--;
+            size--;
             printf("le livre est supprimer .\n");
             t = 1;
         }
@@ -141,7 +141,7 @@ void supprimer()
 void total()
 {
     int total = 0;
-    for (int i = 0; i < count; i++)
+    for (int i = 0; i < size; i++)
     {
         total += Q[i];
     }
