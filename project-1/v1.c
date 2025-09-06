@@ -27,8 +27,7 @@ void ajoutre()
         scanf("%f", &P[i]);
         printf("le Quantite en stock :");
         scanf("%d", &Q[i]);
-        
-    }
+        }
     count += k;
 }
 
