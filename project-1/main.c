@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "library.h"
 int main()
 {
     int k;
-    printf("Système de Gestion de Stock dans une Librairie .\n");
+    printf("Systeme de Gestion de Stock dans une Librairie .\n");
     printf("================================================\n");
     do
     {
