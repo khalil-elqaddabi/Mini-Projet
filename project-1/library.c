@@ -2,11 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-char titre[100][50], auteur[100][50];
+typedef struct {
+char titre[50];
+char auteur[50];
 // Q = quontiter
-int Q[100];
+int Q;
 // P = prix
-float P[100];
+float P;
+}books ;
+books info[100];
+
 int size = 0;
 void ajoutre()
 {
@@ -20,13 +25,13 @@ void ajoutre()
         printf("---le titre N%d-----", i + 1);
         printf("\n");
         printf("le titre du livre :");
-        scanf(" %[^\n]s", titre[i]);
+        scanf(" %[^\n]s", info[i].titre);
         printf("le Auteur du livre :");
-        scanf(" %[^\n]s", auteur[i]);
+        scanf(" %[^\n]s", info[i].auteur);
         printf("le Prix du livre :");
-        scanf("%f", &P[i]);
+        scanf("%f", &info[i].P);
         printf("le Quantite en stock :");
-        scanf("%d", &Q[i]);
+        scanf("%d", &info[i].Q);
         }
     size += k;
 }
@@ -42,10 +47,10 @@ void afficher()
     for (int i = 0; i < size; i++)
     {
         printf("----le livre N%d :---\n", i + 1);
-        printf("%s\n", titre[i]);
-        printf("%s\n", auteur[i]);
-        printf("%.2f\n", P[i]);
-        printf("%d\n", Q[i]);
+        printf("%s\n",info[i].titre);
+        printf("%s\n", info[i].auteur);
+        printf("%.2f\n",info[i].P);
+        printf("%d\n", info[i].Q);
     }
 }
 
@@ -62,7 +67,7 @@ void rechercher()
     int t = 0;
     for (int i = 0; i < size; i++)
     {
-        if (strcmp(titre[i], titre_r) == 0)
+        if (strcasecmp(info[i].titre, titre_r) == 0)
         {
             printf("Ce livre est disponible a la Librairie .\n ");
             t = 1;
@@ -88,11 +93,11 @@ void modifier()
 
     for (int i = 0; i < size; i++)
     {
-        if (strcmp(titre[i], titre_r) == 0)
+        if (strcasecmp(info[i].titre, titre_r) == 0)
         {
-            printf("la quontiter acuille : %d\n", Q[i]);
+            printf("la quontiter acuille : %d\n", info[i].Q);
             printf("nouvelle quantite : ");
-            scanf("%d", &Q[i]);
+            scanf("%d", &info[i].Q);
 
             printf("la quontiter mise a jour .\n");
             t = 1;
@@ -118,14 +123,12 @@ void supprimer()
 
     for (int i = 0; i < size; i++)
     {
-        if (strcmp(titre[i], titer_r) == 0)
+        if (strcasecmp(info[i].titre, titer_r) == 0)
         {
             for (int j = i; j < size - 1; j++)
             {
-                strcpy(titre[j], titre[j + 1]);
-                strcpy(auteur[j], auteur[j + 1]);
-                P[j] = P[j + 1];
-                Q[j] = Q[j + 1];
+                info[j]= info[j + 1];
+               
             }
             size--;
             printf("le livre est supprimer .\n");
@@ -143,7 +146,7 @@ void total()
     int total = 0;
     for (int i = 0; i < size; i++)
     {
-        total += Q[i];
+        total += info[i].Q;
     }
     printf("le totale des livres das le stack est : %d .\n", total);
 }

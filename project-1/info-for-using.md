@@ -1,2 +1,2 @@
 || v1 : the ferst virsion of the project .
-|| v2 + library.c + library.h : the sscond virsion of the project .
+|| main.c + library.c + library.h : the second virsion of the project (header).
