@@ -30,6 +30,7 @@ int main()
             afficher();
             break;
         case 3:
+            
             rechercher();
             break;
         case 4:

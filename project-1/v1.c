@@ -1,17 +1,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct {
-char titre[50];
-char auteur[50];
-// Q = quontiter
-int Q;
-// P = prix
-float P;
-}books ;
+typedef struct
+{
+    char titre[50];
+    char auteur[50];
+    char isbn[20];
+    // Q = quontiter
+    int Q;
+    // P = prix
+    float P;
+} books;
 books info[100];
-
 int size = 0;
+int baniry_isbn(char isbn[20]){
+    for(int i=0;i<size-1;i++){
+        for (int j=i+1;j<size;j++){
+            if(strcasecmp(info[i].isbn,info[j].isbn)>0){
+                books tmk=info[i];
+                info[i]=info[j];
+                info[j]=tmk;
+            }
+        }
+    }
+    int left=0,right= size-1;
+    while(left<=right){
+        int mid=(left + right )/2;
+        int cmp=strcasecmp(info[mid].isbn,isbn);
+        if(cmp==0)
+        return mid;
+       else if(cmp<0)
+       left=mid+1;
+       else 
+       right=mid-1;
+    }
+    return -1;
+}
 void ajoutre()
 {
     int k;
@@ -27,6 +51,9 @@ void ajoutre()
         scanf(" %[^\n]s", info[i].titre);
         printf("le Auteur du livre :");
         scanf(" %[^\n]s", info[i].auteur);
+        
+        printf("isbn du livre : ");
+        scanf(" %[^\n]s",info[i].isbn);
         printf("le Prix du livre :");
         scanf("%f", &info[i].P);
         printf("le Quantite en stock :");
@@ -53,29 +80,28 @@ void afficher()
     }
 }
 
-void rechercher()
-{
-    char titre_r[100];
-    if (size == 0)
-    {
-        printf("le stock est vide !\n");
-        return;
+void rechercher_isbn(){
+    char isbn_r[20];
+    if(size ==0){
+        printf("le stoch est vide \n");
+        return ;
     }
-    printf("le nom de liver : ");
-    scanf(" %[^\n]s", titre_r);
-    int t = 0;
-    for (int i = 0; i < size; i++)
-    {
-        if (strcasecmp(info[i].titre, titre_r) == 0)
-        {
-            printf("Ce livre est disponible a la Librairie .\n ");
-            t = 1;
-        }
+    printf("le isbn du livre qui rechercher : ");
+    scanf(" %[^\n]s",isbn_r);
+    
+    int pos=baniry_isbn(isbn_r);
+    if(pos!=-1){
+        printf("livre trouve\n");
+    printf("%s\n",info[pos].titre);
+    printf("%s\n",info[pos].auteur);
+    printf("%s\n",info[pos].isbn);
+    printf("%.2f\n",info[pos].P);
+    printf("%d\n",info[pos].Q);
+
     }
-    if (!t)
-    {
-        printf("ce livre n'xessite pas !\n");
-    }
+   
+    else
+    printf("ce livre n'exessite pas !");
 }
 
 void modifier()
@@ -162,7 +188,7 @@ int main()
         printf("__________________________________________________\n");
         printf("1 : pour Ajouter un livre au stock.\n");
         printf("2 : pour Afficher tous les livres disponibles.\n");
-        printf("3 : pour Rechercher un livre par son titre.\n");
+        printf("3 : pour Rechercher un livre par son isbn.\n");
         printf("4 : pour Mettre a jour la quantite d'un livre\n");
         printf("5 : pour Supprimer un livre du stock.\n");
         printf("6 : pour Afficher le nombre total de livres en stock.\n");
@@ -180,7 +206,7 @@ int main()
             afficher();
             break;
         case 3:
-            rechercher();
+            rechercher_isbn();
             break;
         case 4:
             modifier();
